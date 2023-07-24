@@ -2,6 +2,7 @@ package com.example.reply.ui
 
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,15 @@ fun ReplyDetailsScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    /*
+        Manual back button since app doesn't use a NavHost.
+        One advantage of using the NavHost composable to switch between screens is that the
+        directions of previous screens are saved in the backstack. These saved screens allow the
+        system back button to easily navigate to the previous screen when invoked.
+     */
+    BackHandler() {
+        onBackPressed()
+    }
     Box(modifier = modifier) {
         LazyColumn(
             modifier = Modifier
