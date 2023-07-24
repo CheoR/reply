@@ -41,7 +41,7 @@ import com.example.reply.data.local.LocalAccountsDataProvider
 fun ReplyHomeScreen(
     replyUiState: ReplyUiState,
     onTabPressed: (MailboxType) -> Unit,
-    onEmailCardPressed: (Email) -> Unit,
+    onEmailCardPressed: (Email) -> Unit, // onEmailCardPressed: (Int) -> Unit,
     onDetailScreenBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -67,13 +67,28 @@ fun ReplyHomeScreen(
             text = stringResource(id = R.string.tab_spam)
         )
     )
-    ReplyAppContent(
-        replyUiState = replyUiState,
-        onTabPressed = onTabPressed,
-        onEmailCardPressed = onEmailCardPressed,
-        navigationItemContentList = navigationItemContentList,
-        modifier = modifier
-    )
+
+    /*
+        In Compose, screens recompose when a state change occurs.
+        You can change screens using simple conditionals to respond to changes in states.
+        You can use conditionals to show screen content based on some conditional e.g. current screen
+     */
+    if (replyUiState.isShowingHomepage) {
+        ReplyAppContent(
+            replyUiState = replyUiState,
+            onTabPressed = onTabPressed,
+            onEmailCardPressed = onEmailCardPressed,
+            navigationItemContentList = navigationItemContentList,
+            modifier = modifier
+        )
+    } else {
+        ReplyDetailsScreen(
+            replyUiState = replyUiState,
+            onBackPressed = onDetailScreenBackPressed,
+            modifier = modifier
+        )
+    }
+
 }
 
 @Composable
