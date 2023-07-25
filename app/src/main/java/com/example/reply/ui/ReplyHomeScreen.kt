@@ -83,6 +83,7 @@ fun ReplyHomeScreen(
     if (navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER
         && replyUiState.isShowingHomepage
     ) {
+        val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
         PermanentNavigationDrawer(
             drawerContent = {
                 PermanentDrawerSheet(Modifier.width(dimensionResource(R.dimen.drawer_width))) {
@@ -97,7 +98,8 @@ fun ReplyHomeScreen(
                             .padding(dimensionResource(R.dimen.drawer_padding_content))
                     )
                 }
-            }
+            },
+            modifier = Modifier.testTag(navigationDrawerContentDescription),
         ) {
             ReplyAppContent(
                 navigationType = navigationType,
@@ -142,41 +144,43 @@ private fun ReplyAppContent(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
-        AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
-            val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-            ReplyNavigationRail(
-                currentTab = replyUiState.currentMailbox,
-                onTabPressed = onTabPressed,
-                navigationItemContentList = navigationItemContentList,
-//                modifier = Modifier
-//                    .testTag(navigationRailContentDescription),
-            )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.inverseOnSurface)
-        ) {
-            ReplyListOnlyContent(
-                replyUiState = replyUiState,
-                onEmailCardPressed = onEmailCardPressed,
-                modifier = Modifier.weight(1f)
-                    .padding(
-                        horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)
-                    )
-            )
-
-            AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
-                val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
-                ReplyBottomNavigationBar(
+    Box(modifier = modifier) {
+        Row(modifier = Modifier.fillMaxSize()) {
+            AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
+                val navigationRailContentDescription = stringResource(R.string.navigation_rail)
+                ReplyNavigationRail(
                     currentTab = replyUiState.currentMailbox,
                     onTabPressed = onTabPressed,
                     navigationItemContentList = navigationItemContentList,
                     modifier = Modifier
-                        .fillMaxWidth(),
-//                    .testTag(bottomNavigationContentDescription),
+                        .testTag(navigationRailContentDescription),
                 )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.inverseOnSurface)
+            ) {
+                ReplyListOnlyContent(
+                    replyUiState = replyUiState,
+                    onEmailCardPressed = onEmailCardPressed,
+                    modifier = Modifier.weight(1f)
+                        .padding(
+                            horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)
+                        )
+                )
+
+                AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
+//                    val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
+                    ReplyBottomNavigationBar(
+                        currentTab = replyUiState.currentMailbox,
+                        onTabPressed = onTabPressed,
+                        navigationItemContentList = navigationItemContentList,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+    //                    .testTag(bottomNavigationContentDescription),
+                    )
+                }
             }
         }
     }
