@@ -17,6 +17,9 @@ fun ReplyApp(
 ) {
     val viewModel: ReplyViewModel = viewModel()
     val replyUiState = viewModel.uiState.collectAsState().value
+    /*
+        To implement navigation drawer, determine navigation type based on the app's window size.
+     */
     val navigationType: ReplyNavigationType
 
     when (windowSize) {
