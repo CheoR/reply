@@ -183,14 +183,14 @@ private fun ReplyAppContent(
                 }
 
                 AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
-//                    val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
+                    val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
                     ReplyBottomNavigationBar(
                         currentTab = replyUiState.currentMailbox,
                         onTabPressed = onTabPressed,
                         navigationItemContentList = navigationItemContentList,
                         modifier = Modifier
-                            .fillMaxWidth(),
-    //                    .testTag(bottomNavigationContentDescription),
+                            .fillMaxWidth()
+                        .testTag(bottomNavigationContentDescription),
                     )
                 }
             }
