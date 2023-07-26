@@ -83,7 +83,7 @@ fun ReplyHomeScreen(
         displays homescreen.
      */
     if (navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER) {
-//        val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
+        val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
         PermanentNavigationDrawer(
             drawerContent = {
                 PermanentDrawerSheet(Modifier.width(dimensionResource(R.dimen.drawer_width))) {
@@ -99,7 +99,7 @@ fun ReplyHomeScreen(
                     )
                 }
             },
-//            modifier = Modifier.testTag(navigationDrawerContentDescription),
+            modifier = Modifier.testTag(navigationDrawerContentDescription),
         ) {
             ReplyAppContent(
                 navigationType = navigationType,
