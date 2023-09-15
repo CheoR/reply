@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.extra["lifecycle_version"]}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.extra["lifecycle_version"]}")
+
+    implementation("androidx.navigation:navigation-compose:2.5.3")
     // for adaptive sizing
     implementation("androidx.compose.material3:material3-window-size-class")
 
